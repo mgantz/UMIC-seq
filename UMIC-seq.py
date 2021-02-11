@@ -5,6 +5,8 @@
 ## Added quick stop to the clustering, to make it more time efficient. It'll stop clustering when essentially only outliers are left (low average clustersize).
 #09/04/2020 v1.1.1
 ## Minor changes to aesthetics
+#11/02/2021 v1.1.2
+## Fixed an issue where incomplete UMIs could be extracted for truncated reads
 
 
 from Bio import SeqIO
@@ -22,7 +24,7 @@ parser = argparse.ArgumentParser(description="""Main script for UMI-linked conse
                                  Version 1.1.1""")
 #parser.add_argument('mode', help='Select mode', choices=('UMIextract', 'clustertest', 'clusterfull'))
 parser.add_argument('-T', '--threads', type=int, default=0, help='Number of threads to execute in parallel. Defaults to CPU count.')
-parser.add_argument('-v', '--version', action='version', version='1.1.1')
+parser.add_argument('-v', '--version', action='version', version='1.1.2')
 
 subparsers = parser.add_subparsers(help='Select mode', dest='mode')
 
@@ -122,7 +124,7 @@ if mode == 'UMIextract':
                 elif umi_loc == 'up':
                     umi_begin, umi_end = extract_left(alnF)   #FWD of upstream is left
                 #append to UMI to record list
-                if umi_end < len(alnF.target_sequence): #UMI could be out of bounds
+                if umi_end < len(alnF.target_sequence) and umi_begin > 0: #UMI could be out of bounds
                     umi = alnF.target_sequence[umi_begin:umi_end]
                     record.letter_annotations = {} #remove qality
                     record.seq = Seq(umi)
@@ -137,7 +139,7 @@ if mode == 'UMIextract':
                 elif umi_loc == 'up':
                     umi_begin, umi_end = extract_right(alnR)   #REV of upstream is right
                 #append to UMI to record list
-                if umi_begin > 0: #UMI could be out of bounds
+                if umi_begin > 0 and umi_end < len(alnR.target_sequence): #UMI could be out of bounds
                     umiR = alnR.target_sequence[umi_begin:umi_end]
                     record.letter_annotations = {} #remove qality
                     record.seq = Seq(umiR).reverse_complement()
