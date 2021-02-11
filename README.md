@@ -1,6 +1,6 @@
 # UMIC-seq
 **UMI-linked consensus sequencing tool.**\
-Scripts accompanying "UMI-linked consensus sequencing enables phylogenetic analysis of directed evolution" (Zurek PJ, Knyphausen P, Neufeld K, Pushpanath A, Hollfelder F, *in preparation*) 
+Scripts accompanying "UMI-linked consensus sequencing enables phylogenetic analysis of directed evolution" (Zurek PJ, Knyphausen P, Neufeld K, Pushpanath A, Hollfelder F (2020) [Nat Commun 11:6023](https://www.nature.com/articles/s41467-020-19687-9)) 
 
 ## Setup and installation
 This python script is meant to be used as a stand-alone. Just download and copy it into your working directory or add it to your environment path.
