@@ -6,7 +6,7 @@
 #09/04/2020 v1.1.1
 ## Minor changes to aesthetics
 #11/02/2021 v1.1.2
-## Fixed an issue where incomplete UMIs could be extracted for truncated reads
+## Fixed an issue where incomplete UMIs could be extracted from truncated reads
 
 
 from Bio import SeqIO
